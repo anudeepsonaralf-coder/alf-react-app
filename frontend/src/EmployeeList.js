@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
+import api from "./config/axios";
 
 function EmployeeList() {
   const navigate = useNavigate();
@@ -20,8 +21,7 @@ function EmployeeList() {
 
   const fetchEmployees = async () => {
     try {
-      const res = await fetch("http://localhost:5000/api/employees");
-      const data = await res.json();
+      const { data } = await api.get("api/employees");
 
       setEmployees(data);
     } catch (err) {

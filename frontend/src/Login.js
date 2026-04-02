@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "./config/axios";
 
 function Login() {
 
@@ -23,30 +24,15 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await fetch("http://localhost:5000/api/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(form)
-      });
+      const { data } = await api.post("/api/auth/login", form);
 
-      const data = await res.json();
+      setMessage("✅ " + data.message);
 
-      if (res.ok) {
-        setMessage("✅ Login successful");
+      localStorage.setItem("user", JSON.stringify(data.user));
+      navigate("/dashboard");
 
-        // store user (optional)
-        localStorage.setItem("user", JSON.stringify(data.user));
-
-        // redirect
-        navigate("/dashboard");
-      } else {
-        setMessage("❌ " + data.message);
-      }
     } catch (err) {
-      console.error(err);
-      setMessage("❌ Server error");
+      setMessage("❌ " + (err.response?.data?.message || "Server error"));
     }
   };
 
