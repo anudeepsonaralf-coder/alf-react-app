@@ -4,7 +4,7 @@ const db = mysql.createConnection({
   host: 'localhost',
   user: 'root',
   password: '',
-  database: 'alfiot'
+  database: 'alf_iot_dev'
 });
 
 db.connect((err) => {

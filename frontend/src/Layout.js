@@ -28,7 +28,7 @@ function Layout({ children }) {
         {/* Header */}
         <div style={styles.header}>
           <h3>Welcome {user?.email}</h3>
-          <button onClick={handleLogout} style={styles.logoutBtn}>
+          <button onClick={handleLogout} className="btn btn-danger">
             Logout
           </button>
         </div>

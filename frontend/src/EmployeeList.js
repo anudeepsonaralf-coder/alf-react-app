@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "./Layout";
 
@@ -6,26 +6,37 @@ function EmployeeList() {
   const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem("user"));
 
+  const [employees, setEmployees] = useState([]);
+
   useEffect(() => {
     if (!user) {
       navigate("/");
     }
+
+    fetchEmployees();
   }, [user, navigate]);
 
   // Dummy employee data
-  const employees = [
-    { id: 1, name: "John Doe", email: "john@gmail.com", role: "Developer" },
-    { id: 2, name: "Jane Smith", email: "jane@gmail.com", role: "Designer" },
-    { id: 3, name: "Mike Johnson", email: "mike@gmail.com", role: "Manager" }
-  ];
+
+  const fetchEmployees = async () => {
+    try {
+      const res = await fetch("http://localhost:5000/api/employees");
+      const data = await res.json();
+
+      setEmployees(data);
+    } catch (err) {
+      console.error("Error fetching employees:", err);
+    }
+  };
 
   return (
     <Layout>
       <h2>Employee List 👨‍💼</h2>
 
-      <table style={styles.table}>
+      <table style={styles.table} className="table table-bordered">
         <thead>
           <tr>
+            <th style={styles.th}>SR NO</th>
             <th style={styles.th}>ID</th>
             <th style={styles.th}>Name</th>
             <th style={styles.th}>Email</th>
@@ -34,11 +45,12 @@ function EmployeeList() {
         </thead>
 
         <tbody>
-          {employees.map((emp) => (
+          {employees.map((emp, index) => (
             <tr key={emp.id}>
+              <td style={styles.td}>{index + 1}</td>
               <td style={styles.td}>{emp.id}</td>
-              <td style={styles.td}>{emp.name}</td>
-              <td style={styles.td}>{emp.email}</td>
+              <td style={styles.td}>{emp.emp_name}</td>
+              <td style={styles.td}>{emp.email_id}</td>
               <td style={styles.td}>{emp.role}</td>
             </tr>
           ))}

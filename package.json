@@ -1,0 +1,26 @@
+{
+  "name": "react-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "server": "nodemon backend/app.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anudeepsonaralf-coder/alf-react-app.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/anudeepsonaralf-coder/alf-react-app/issues"
+  },
+  "homepage": "https://github.com/anudeepsonaralf-coder/alf-react-app#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

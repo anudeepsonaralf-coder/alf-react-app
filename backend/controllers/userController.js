@@ -2,7 +2,7 @@ const User = require('../models/userModel');
 
 exports.employees = (req, res) => {
 
-  User.getAllEmployees(email, async (err, results) => {
+  User.getAllEmployees(async (err, results) => {
     if (err) {
       return res.status(500).json({ message: 'DB error', error: err });
     }
@@ -12,9 +12,7 @@ exports.employees = (req, res) => {
     }
 
     // Success
-    res.json({
-      message: 'All Active Employees.',
-      user: results
-    });
+    res.json(results);
   });
+
 };
